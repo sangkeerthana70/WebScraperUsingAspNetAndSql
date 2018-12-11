@@ -1,0 +1,80 @@
+﻿@model FinanceWebScraperUsingAsp.NetAndSQL.Models.Stock
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Stock</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Change)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Change)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PercentChange)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PercentChange)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AverageVolume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AverageVolume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarketCap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarketCap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SnapshotTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SnapshotTime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
