@@ -14,17 +14,16 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
 {
     public class StocksController : Controller
     {
-        private Stock1DbEntities db = new Stock1DbEntities();
+        private FinanceWebScraperUsingAspNetAndSqlEntities db = new FinanceWebScraperUsingAspNetAndSqlEntities();
 
         // GET: Stocks
         public ActionResult Index()
         {
-            //return View(db.Stocks.ToList());
-            return View();
+            return View(db.Stocks.ToList());
         }
 
         // GET: Stocks/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -43,62 +42,73 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
         {
             return View();
         }
-
+        /*
         // POST: Stocks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Symbol,Change,PercentChange,Currency,AverageVolume,MarketCap,Price,SnapshotTime")] Stock stock)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Stocks.Add(stock);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(stock);
-        //}
-
-        // POST: Stocks/Create
-
-        public ActionResult Scrape()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Symbol,Change,PercentChange,Currency,AverageVolume,MarketCap,Price,SnapShotTime")] Stock stock)
         {
-            var connString = @"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = FinanceWebScraperUsingAsp.NetAndSQL; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
-
-            using (SqlConnection connection = new SqlConnection(connString))
+            if (ModelState.IsValid)
             {
-                connection.Open();
-                Scraper s = new Scraper("asangeethu@yahoo.com", "@nuk1978");
-                var snapShot = s.Scrape();
-                foreach (var item in snapShot)
-                {
-                    SqlCommand insCommand = new SqlCommand("INSERT INTO [Stock] (Symbol, Change, PercentChange, Currency, AverageVolume, MarketCap, Price, SnapshotTime) VALUES (@Symbol, @Change, @PercentChange, @Currency, @AverageVolume, @MarketCap, @Price, @SnapshotTime)", connection);
-                    insCommand.Parameters.AddWithValue("@Symbol", item.Symbol.ToString());
-                    insCommand.Parameters.AddWithValue("@Change", item.Change.ToString());
-                    insCommand.Parameters.AddWithValue("@PercentChange", item.PercentChange.ToString());
-                    insCommand.Parameters.AddWithValue("@Currency", item.Currency.ToString());
-                    insCommand.Parameters.AddWithValue("@AverageVolume", item.AverageVolume.ToString());
-                    insCommand.Parameters.AddWithValue("@MarketCap", item.MarketCap.ToString());
-                    insCommand.Parameters.AddWithValue("@Price", item.Price.ToString());
-                    insCommand.Parameters.AddWithValue("@SnapshotTime", item.SnapshotTime.ToString());
-
-                    insCommand.ExecuteNonQuery();
-                }
-
-                Console.WriteLine("DB updated");
-                connection.Close();
-
-
-                return RedirectToAction(nameof(Index));
+                db.Stocks.Add(stock);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
+
+            return View(stock);
+        }
+        */
+
+       //custom method to run scrape and load into database
+       public ActionResult ScrapeYahoo()
+       {
+            if (ModelState.IsValid)
+            {
+                Scraper s = new Scraper("asangeethu@yahoo.com", "@nuk1978");
+
+                var connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FinanceWebScraperUsingAspNetAndSql;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+                using (SqlConnection connection = new SqlConnection(connString))
+                {
+                    connection.Open();
+                    
+                    var snapShot = s.Scrape();
+                    foreach (var item in snapShot)
+                    {
+                        DateTime myDateTime = DateTime.Today;
+                        SqlCommand insCommand = new SqlCommand("INSERT INTO [Stock] (Symbol, Change, PercentChange, Currency, AverageVolume, MarketCap, Price, SnapshotTime) VALUES (@Symbol, @Change, @PercentChange, @Currency, @AverageVolume, @MarketCap, @Price, @SnapshotTime)", connection);
+                        insCommand.Parameters.AddWithValue("@Symbol", item.Symbol.ToString());
+                        insCommand.Parameters.AddWithValue("@Change", item.Change.ToString());
+                        insCommand.Parameters.AddWithValue("@PercentChange", item.PercentChange.ToString());
+                        insCommand.Parameters.AddWithValue("@Currency", item.Currency.ToString());
+                        insCommand.Parameters.AddWithValue("@AverageVolume", item.AverageVolume.ToString());
+                        insCommand.Parameters.AddWithValue("@MarketCap", item.MarketCap.ToString());
+                        insCommand.Parameters.AddWithValue("@Price", item.Price.ToString());
+                        insCommand.Parameters.AddWithValue("@SnapshotTime", item.SnapShotTime);
+
+                        insCommand.ExecuteNonQuery();
+                    }
+
+                    Console.WriteLine("DB updated");
+                    connection.Close();
+
+
+                    
+                    //db.Stocks.Add(stock);
+                    //db.SaveChanges();
+                    //return RedirectToAction("Index");
+                }
+               
+
+            }
+            return RedirectToAction(nameof(Index));
 
         }
 
-
         // GET: Stocks/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -117,7 +127,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Symbol,Change,PercentChange,Currency,AverageVolume,MarketCap,Price,SnapshotTime")] Stock stock)
+        public ActionResult Edit([Bind(Include = "Id,Symbol,Change,PercentChange,Currency,AverageVolume,MarketCap,Price,SnapShotTime")] Stock stock)
         {
             if (ModelState.IsValid)
             {
@@ -129,7 +139,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
         }
 
         // GET: Stocks/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -146,7 +156,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
         // POST: Stocks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Stock stock = db.Stocks.Find(id);
             db.Stocks.Remove(stock);

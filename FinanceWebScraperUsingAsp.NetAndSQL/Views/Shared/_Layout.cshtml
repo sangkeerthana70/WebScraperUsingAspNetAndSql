@@ -17,12 +17,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Stocks" asp-action="Index" class="navbar-brand">FinanceWebScraper</a>
+                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("FinanceWebScraper", "Index" ,"Stocks", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li><a asp-area="" asp-controller="ScrapeYahoo" asp-action="History">History</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
