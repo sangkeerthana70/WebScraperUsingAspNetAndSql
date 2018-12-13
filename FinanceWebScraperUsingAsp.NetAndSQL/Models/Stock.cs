@@ -14,6 +14,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Models
     
     public partial class Stock
     {
+        public int Id { get; set; }
         public string Symbol { get; set; }
         public string Change { get; set; }
         public string PercentChange { get; set; }
@@ -21,6 +22,6 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Models
         public string AverageVolume { get; set; }
         public string MarketCap { get; set; }
         public string Price { get; set; }
-        public System.DateTime SnapshotTime { get; set; }
+        public System.DateTime SnapShotTime { get; set; }
     }
 }
