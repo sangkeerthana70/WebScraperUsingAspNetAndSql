@@ -13,10 +13,10 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Stock1DbEntities : DbContext
+    public partial class FinanceWebScraperUsingAspNetAndSqlEntities : DbContext
     {
-        public Stock1DbEntities()
-            : base("name=Stock1DbEntities")
+        public FinanceWebScraperUsingAspNetAndSqlEntities()
+            : base("name=FinanceWebScraperUsingAspNetAndSqlEntities")
         {
         }
     
