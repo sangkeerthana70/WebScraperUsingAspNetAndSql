@@ -22,7 +22,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Services
         public List<Stock> Scrape()
         {
             var options = new ChromeOptions();
-            options.AddArgument("--headless");
+            //options.AddArgument("--headless");
             options.AddArguments("--disable-gpu");
             options.AddArguments("disable-popup-blocking");//to disable pop-up blocking
 
