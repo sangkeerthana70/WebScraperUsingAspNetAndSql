@@ -67,6 +67,9 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
             if (ModelState.IsValid)
             {
                 Scraper s = new Scraper("asangeethu@yahoo.com", "@nuk1978");
+                DateTime myDateTime = DateTime.Now;
+                string date = myDateTime.ToString("dd/MM/YYYY");
+                //DateTime myDateTime = DateTime.Today;
 
                 var connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FinanceWebScraperUsingAspNetAndSql;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -77,8 +80,8 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
                     var snapShot = s.Scrape();
                     foreach (var item in snapShot)
                     {
-                        DateTime myDateTime = DateTime.Today;
-                        SqlCommand insCommand = new SqlCommand("INSERT INTO [Stock] (Symbol, Change, PercentChange, Currency, AverageVolume, MarketCap, Price, SnapshotTime) VALUES (@Symbol, @Change, @PercentChange, @Currency, @AverageVolume, @MarketCap, @Price, @SnapshotTime)", connection);
+                        
+                        SqlCommand insCommand = new SqlCommand("INSERT INTO [Stock] (Symbol, Change, PercentChange, Currency, AverageVolume, MarketCap, Price) VALUES (@Symbol, @Change, @PercentChange, @Currency, @AverageVolume, @MarketCap, @Price)", connection);
                         insCommand.Parameters.AddWithValue("@Symbol", item.Symbol.ToString());
                         insCommand.Parameters.AddWithValue("@Change", item.Change.ToString());
                         insCommand.Parameters.AddWithValue("@PercentChange", item.PercentChange.ToString());
@@ -86,24 +89,21 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
                         insCommand.Parameters.AddWithValue("@AverageVolume", item.AverageVolume.ToString());
                         insCommand.Parameters.AddWithValue("@MarketCap", item.MarketCap.ToString());
                         insCommand.Parameters.AddWithValue("@Price", item.Price.ToString());
-                        insCommand.Parameters.AddWithValue("@SnapshotTime", item.SnapShotTime);
+                        insCommand.Parameters.AddWithValue("@SnapShotTime", myDateTime);
 
                         insCommand.ExecuteNonQuery();
                     }
-
                     Console.WriteLine("DB updated");
                     connection.Close();
-
-
                     
                     //db.Stocks.Add(stock);
-                    //db.SaveChanges();
+                    db.SaveChanges();
                     //return RedirectToAction("Index");
                 }
                
 
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
 
         }
 
