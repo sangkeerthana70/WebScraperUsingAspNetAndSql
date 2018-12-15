@@ -68,7 +68,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
             {
                 Scraper s = new Scraper("asangeethu@yahoo.com", "@nuk1978");
                 DateTime myDateTime = DateTime.Now;
-                string date = myDateTime.ToString("dd/MM/YYYY");
+                
                 //DateTime myDateTime = DateTime.Today;
 
                 var connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FinanceWebScraperUsingAspNetAndSql;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
