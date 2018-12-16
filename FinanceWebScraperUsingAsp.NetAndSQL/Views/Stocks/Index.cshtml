@@ -9,10 +9,15 @@
 <p>
     @*Html.ActionLink("Create New", "Create")*@
     @Html.ActionLink("Scrape New Stock Data", "ScrapeYahoo", "Stocks")
+    <br />
+    @Html.ActionLink("Show History of scraped stocks", "History", "History")
 
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SnapShotTime)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Symbol)
         </th>
@@ -34,9 +39,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SnapShotTime)
-        </th>
+
         <th></th>
     </tr>
 
