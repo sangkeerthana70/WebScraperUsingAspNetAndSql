@@ -81,7 +81,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
                     foreach (var item in snapShot)
                     {
                         
-                        SqlCommand insCommand = new SqlCommand("INSERT INTO [Stock] (Symbol, Change, PercentChange, Currency, AverageVolume, MarketCap, Price) VALUES (@Symbol, @Change, @PercentChange, @Currency, @AverageVolume, @MarketCap, @Price)", connection);
+                        SqlCommand insCommand = new SqlCommand("INSERT INTO [Stock] (SnapShotTime, Symbol, Change, PercentChange, Currency, AverageVolume, MarketCap, Price) VALUES (@SnapShotTime, @Symbol, @Change, @PercentChange, @Currency, @AverageVolume, @MarketCap, @Price)", connection);
                         insCommand.Parameters.AddWithValue("@Symbol", item.Symbol.ToString());
                         insCommand.Parameters.AddWithValue("@Change", item.Change.ToString());
                         insCommand.Parameters.AddWithValue("@PercentChange", item.PercentChange.ToString());
@@ -139,30 +139,53 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
         }
 
         // GET: Stocks/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(DateTime SnapShotTime)
+        //public DateTime Delete(DateTime SnapShotTime)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Stock stock = db.Stocks.Find(id);
-            if (stock == null)
-            {
-                return HttpNotFound();
-            }
-            return View(stock);
+            /*
+            //if (SnapShotTime == null)
+            //{
+            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            //}
+            //Stock stock = db.Stocks.Find(SnapShotTime);
+            //if (stock == null)
+            //{
+            //   return HttpNotFound();
+            //}
+            */
+
+            //return the delete view which accepts the DateTime as model
+                return View(SnapShotTime);
         }
 
         // POST: Stocks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        //public ActionResult DeleteConfirmed(DateTime SnapShotTime)
+//        public ActionResult DeleteConfirmed(DateTime SnapShotTime)
+        public DateTime DeleteConfirmed(DateTime SnapShotTime)
         {
-            Stock stock = db.Stocks.Find(id);
-            db.Stocks.Remove(stock);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            //Stock stock = db.Stocks.Find(id);
+            //db.Stocks.Remove(stock);
+            //db.SaveChanges();
+            /*
+            var connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FinanceWebScraperUsingAspNetAndSql;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            "2018-12-16 13:18:14.3933333"
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                connection.Open();
+                SqlCommand deleteCommand = new SqlCommand("DELETE FROM [Stock] WHERE SnapShotTime = @SnapShotTime", connection);
+                deleteCommand.Parameters.AddWithValue("@SnapShotTime", SnapShotTime);
+                deleteCommand.ExecuteNonQuery();
+                connection.Close();
+            }
+            Console.WriteLine("Deleted Records for the Snapshot");
+            */
+            return SnapShotTime;
+            //return RedirectToAction("Index");
         }
+                
 
         protected override void Dispose(bool disposing)
         {
