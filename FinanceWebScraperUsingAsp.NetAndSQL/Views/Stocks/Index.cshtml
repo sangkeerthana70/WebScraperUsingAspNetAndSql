@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<FinanceWebScraperUsingAsp.NetAndSQL.Models.Stock>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Stock";
 }
 
-<h2>Index</h2>
+<h2>Stock</h2>
 
 <p>
     @*Html.ActionLink("Create New", "Create")*@
@@ -43,37 +43,48 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SnapShotTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Symbol)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Change)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PercentChange)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Currency)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AverageVolume)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MarketCap)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>           
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @{ FinanceWebScraperUsingAsp.NetAndSQL.Models.Stock prevStock = new FinanceWebScraperUsingAsp.NetAndSQL.Models.Stock(); }
+    
+    @foreach (var stock in Model)
+    {
+        <tr>
+            <td>
+                @{ if (stock.SnapShotTime != prevStock.SnapShotTime)
+                    {
+                        @Html.DisplayFor(modelItem => stock.SnapShotTime)
+                        <br />
+                        @*@Html.DisplayFor(modelItem => prevStock.SnapShotTime)*@
+                        @Html.ActionLink("Delete", "Delete", new { id = stock.SnapShotTime })
+                    }
+                }
+
+<td>
+                @Html.DisplayFor(modelItem => stock.Symbol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => stock.Change)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => stock.PercentChange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => stock.Currency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => stock.AverageVolume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => stock.MarketCap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => stock.Price)
+            </td>
+            <td>
+                @*@@Html.ActionLink("Details", "Details", new { id = stock.Id }) |*@
+                
+            </td>
+        </tr>
+        prevStock = stock;
+     }
 
 </table>
