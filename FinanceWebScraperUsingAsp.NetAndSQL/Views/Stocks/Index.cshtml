@@ -46,6 +46,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.SnapShotTime)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Symbol)
         </td>
         <td>
@@ -66,13 +69,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SnapShotTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        <td>           
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }
