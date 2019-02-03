@@ -4,4 +4,23 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>This is a Finance Web Scraper that scrapes stock data from yahoo finance website. It was designed with Database first approach and then model was created using ADO.Net Entity Data Model </p>
+<p>
+    This is ASP.NET based web application used to scrape stock prices from Yahoo Finance website using Selenium and store the results in a database.
+    <br />
+    Database first methodology was used to build the application, where tables were created first in the database and corresponding models were generated using ADO.Net entity data model.
+    <br />
+    <h3>
+        Some of the features:
+    </h3>
+    <br />
+    Ability to register as new user to the app and subsequently logon using the user id/password originally created
+    Ability to scrape current stock prices for given portfolio from Yahoo Finance website and persist results in MS SQL database
+    Ability to display previously scraped and persisted data in the index page in a minimalistic and easy to read HTML table
+    Ability to delete any given snapshot of data previously scraped
+    <br />
+    <h3>Challenges encountered:</h3>
+    <br />
+    In order to group stock prices for a given snapshot, I wanted to display Snapshot time only on the first record of each snapshot. In order to accomplish this, I needed to write additional razor syntax code in the view
+
+    While deleting, I thought it made sense to delete all records created as part of a snapshot rather than deleting individual stock prices. Implementing this feature involved customizing the delete method in the controller. While doing this customization, I thought I'll handle the code in the SQL to add variety to the application. This involved some researching and practicing SQLs
+</p>
