@@ -42,8 +42,8 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Services
             chromeDriver.Url = "https://finance.yahoo.com/portfolio/p_1/view/v1";
             Console.WriteLine("In yahoo finance page");
             
-            var closePopup = chromeDriver.FindElementByXPath("//dialog[@id = '__dialog']/section/button");
-            closePopup.Click();
+            //var closePopup = chromeDriver.FindElementByXPath("//dialog[@id = '__dialog']/section/button");
+            //closePopup.Click();
             //var items = chromeDriver.FindElementsByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[*]/td[*]/span/a").GetAttribute;
             IWebElement list = chromeDriver.FindElementByTagName("tbody");
             System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> items = list.FindElements(By.TagName("tr"));
@@ -54,13 +54,13 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Services
             for (int i = 1; i <= count; i++)
             {
                 Console.WriteLine(i);
-                var symbol = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[1]/span/a").GetAttribute("innerText");
-                var lastprice = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[2]/span").GetAttribute("innerText");
-                var change = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[3]/span").GetAttribute("innerText");
-                var percentChange = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[4]/span").GetAttribute("innerText");
-                var currency = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[5]").GetAttribute("innerText");
-                var avgVolume = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[9]").GetAttribute("innerText");
-                var marketCap = chromeDriver.FindElementByXPath("//*[@id=\"main\"]/section/section[2]/div[2]/table/tbody/tr[" + i + "]/td[13]/span").GetAttribute("innerText");
+                var symbol = chromeDriver.FindElementByXPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[1]").GetAttribute("innerText");
+                var lastprice = chromeDriver.FindElementByXPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[2]").GetAttribute("innerText");
+                var change = chromeDriver.FindElementByXPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[3]/span").GetAttribute("innerText");
+                var percentChange = chromeDriver.FindElementByXPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[4]/span").GetAttribute("innerText");
+                var currency = chromeDriver.FindElementByXPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[5]").GetAttribute("innerText");
+                var avgVolume = chromeDriver.FindElementByXPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[9]").GetAttribute("innerText");
+                var marketCap = chromeDriver.FindElementByXPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[" + i + "]/td[13]").GetAttribute("innerText");
 
                 Stock stock = new Stock();
                 Console.WriteLine(symbol);
