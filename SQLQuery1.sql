@@ -1,0 +1,1 @@
+﻿Select * FROM [dbo].[Stock] ORDER BY SNAPSHOTTIME DESC,ID;
