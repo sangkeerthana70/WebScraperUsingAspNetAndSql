@@ -19,6 +19,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
         // GET: Stocks
         public ActionResult Index()
         {
+            // retrieve scraped data from Db and present it in the Index view
             return View(db.Stocks.ToList());
         }
 
@@ -169,8 +170,8 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
             {
                 connection.Open();
                 SqlCommand deleteCommand = new SqlCommand("DELETE FROM [Stock] WHERE CAST(SNAPSHOTTIME AS DATE) = @SnapShotDate AND CAST(SNAPSHOTTIME AS TIME(0)) = @SnapShotTime", connection);
-                deleteCommand.Parameters.AddWithValue("@SnapShotDate", SnapShotTime.Date);
-                deleteCommand.Parameters.AddWithValue("@SnapShotTime", SnapShotTime.TimeOfDay);
+                deleteCommand.Parameters.AddWithValue("@SnapShotDate", SnapShotTime.Date);// date portion of SnapShot Time
+                deleteCommand.Parameters.AddWithValue("@SnapShotTime", SnapShotTime.TimeOfDay);// time portion Of SnapShot time
                 deleteCommand.ExecuteNonQuery();
                 connection.Close();
             }
