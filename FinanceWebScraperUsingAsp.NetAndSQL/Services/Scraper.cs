@@ -33,11 +33,12 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Services
             chromeDriver.Manage().Window.Maximize();
 
             chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            chromeDriver.FindElementById("login-username").SendKeys(this.userid);
-            chromeDriver.FindElementById("login-signin").Click();
+            chromeDriver.FindElementById("login-username").SendKeys(this.userid + Keys.Enter);
+            chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            //chromeDriver.FindElementById("login-signin").Click();
 
-            chromeDriver.FindElementById("login-passwd").SendKeys(this.password);
-            chromeDriver.FindElementById("login-signin").Click();
+            chromeDriver.FindElementById("login-passwd").SendKeys(this.password + Keys.Enter);
+            //chromeDriver.FindElementById("login-signin").Click();
 
             chromeDriver.Url = "https://finance.yahoo.com/portfolio/p_1/view/v1";
             Console.WriteLine("In yahoo finance page");
