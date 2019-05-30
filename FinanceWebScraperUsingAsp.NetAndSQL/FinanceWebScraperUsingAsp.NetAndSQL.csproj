@@ -309,7 +309,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Stocks\Delete.cshtml" />
-    <Content Include="Views\Stocks\Details.cshtml" />
     <Content Include="Views\Stocks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
