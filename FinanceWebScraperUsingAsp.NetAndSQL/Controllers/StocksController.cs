@@ -23,6 +23,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
             return View(db.Stocks.ToList());
         }
 
+        /*
         // GET: Stocks/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,15 +36,15 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
             {
                 return HttpNotFound();
             }
-            return View(stock);
+            return View(stock);//return stock details in the details view
         }
-
+        
         // GET: Stocks/Create
         public ActionResult Create()
         {
             return View();
         }
-        /*
+        
         // POST: Stocks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -107,7 +108,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
             return RedirectToAction("Index");
 
         }
-
+        /*
         // GET: Stocks/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -138,6 +139,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
             }
             return View(stock);
         }
+        */
 
         // GET: Stocks/Delete/5
         public ActionResult Delete(DateTime SnapShotTime)
@@ -157,7 +159,7 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
             */
 
             //return the delete view which accepts the DateTime as model
-                return View(SnapShotTime);
+            return View(SnapShotTime);
         }
 
         // POST: Stocks/Delete/5
