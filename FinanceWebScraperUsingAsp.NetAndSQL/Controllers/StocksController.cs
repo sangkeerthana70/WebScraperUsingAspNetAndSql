@@ -165,22 +165,30 @@ namespace FinanceWebScraperUsingAsp.NetAndSQL.Controllers
         // POST: Stocks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        /*public string DeleteConfirmed(DateTime SnapShotTime)
+        {
+            return SnapShotTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+        }
+        */
+        
         public ActionResult DeleteConfirmed(DateTime SnapShotTime)
         {
             var connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FinanceWebScraperUsingAspNetAndSql;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             using (SqlConnection connection = new SqlConnection(connString))
             {
                 connection.Open();
-                SqlCommand deleteCommand = new SqlCommand("DELETE FROM [Stock] WHERE CAST(SNAPSHOTTIME AS DATE) = @SnapShotDate AND CAST(SNAPSHOTTIME AS TIME(0)) = @SnapShotTime", connection);
-                deleteCommand.Parameters.AddWithValue("@SnapShotDate", SnapShotTime.Date);// date portion of SnapShot Time
-                deleteCommand.Parameters.AddWithValue("@SnapShotTime", SnapShotTime.TimeOfDay);// time portion Of SnapShot time
+                //SqlCommand deleteCommand = new SqlCommand("DELETE FROM [Stock] WHERE CAST(SNAPSHOTTIME AS DATE) = @SnapShotDate AND CAST(SNAPSHOTTIME AS TIME(0)) = @SnapShotTime", connection);
+                SqlCommand deleteCommand = new SqlCommand("DELETE FROM [Stock] WHERE CAST(SNAPSHOTTIME AS CHAR(19)) = @SnapShotDate", connection);
+                deleteCommand.Parameters.AddWithValue("@SnapShotDate", SnapShotTime.ToString("yyyy-MM-dd HH:mm:ss"));// date portion of SnapShot Time
+                //deleteCommand.Parameters.AddWithValue("@SnapShotTime", SnapShotTime.TimeOfDay);// time portion Of SnapShot time
                 deleteCommand.ExecuteNonQuery();
                 connection.Close();
             }
             Console.WriteLine("Deleted Records for the Snapshot");
             return RedirectToAction("Index");
         }
-                
+        
 
         protected override void Dispose(bool disposing)
         {
